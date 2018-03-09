@@ -3,13 +3,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        build 'fastjson'
         echo 'pull finish!'
+        sh 'mvn deploy'
       }
     }
     stage('Test') {
       steps {
-        timestamps()
+        sh 'mvn test'
       }
     }
   }
