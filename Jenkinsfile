@@ -7,5 +7,10 @@ pipeline {
         echo 'pull finish!'
       }
     }
+    stage('Test') {
+      steps {
+        timestamps()
+      }
+    }
   }
 }
