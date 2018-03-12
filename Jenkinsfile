@@ -1,15 +1,14 @@
-pipeline {
-  agent {
-    docker {
-      image 'node:7-alpine'
+node {
+    stage('Build') {
+        docker.withTool("docker") {
+            withDockerServer([uri: "tcp://docker:2375"]) {
+                docker.image('node:7-alpine').inside {
+                    sh 'node --version'
+                }
+            }    
+        }
     }
-    
-  }
-  stages {
     stage('Test') {
-      steps {
-        sh 'node --version'
-      }
+        echo 'Testing....'
     }
-  }
 }
