@@ -3,6 +3,7 @@ node {
         docker.withTool("docker") {
             withDockerServer([uri: "tcp://docker:2375"]) {
                 docker.image('node:7-alpine').inside {
+                    sh 'printenv'
                     sh 'node --version'
                 }
             }    
