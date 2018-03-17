@@ -1,16 +1,13 @@
 pipeline {
-  agent {
-    docker.withTool("docker") {
-      withDockerServer([uri: "tcp://docker:2375"]) {
-        docker.image('maven:3.5.3').inside('--user root -v /var/jenkins_home/.m2:/root/.m2')
-      }
-    }
+  agent any
+  tools {
+    docker 'docker'
   }
   stages {
     stage('Build') {
       steps {
         script {
-          docker.withTool("docker") {
+          docker {
             withDockerServer([uri: "tcp://docker:2375"]) {
               docker.image('maven:3.5.3').inside('--user root -v /var/jenkins_home/.m2:/root/.m2') {
                 sh 'id'
