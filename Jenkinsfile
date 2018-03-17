@@ -32,6 +32,15 @@ pipeline {
         }
         
       }
+      
+      post {
+        failure {
+          echo '## sorry fail!!'
+        }
+        success {
+          echo '## congradulation success!!'
+        }
+      }
     }
     stage('Test') {
       steps {
