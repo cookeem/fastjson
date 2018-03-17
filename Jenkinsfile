@@ -6,17 +6,25 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      input {
+        message "Should we continue?"
+        ok "Yes, we should."
+        parameters {
+          string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        }
+      }
       steps {
         script {
           docker //.withTool("docker") {
             withDockerServer([uri: "tcp://docker:2375"]) {
-              docker.image('maven:3.5.3').inside('--user root') {
+              docker.image(/*'maven:3.5.3'*/ 'alpine').inside('--user root') {
+                echo "Hello, ${PERSON}, nice to meet you."
                 sh 'id'
                 sh 'whoami'
                 sh 'pwd'
-                sh 'mvn --version'
-                sh 'mvn clean install'
-                sh 'ls -l target'
+                //sh 'mvn --version'
+                //sh 'mvn clean install'
+                //sh 'ls -l target'
               }
             }
           //}
@@ -28,7 +36,7 @@ pipeline {
       steps {
         echo 'Testing....'
         sh 'pwd'
-        sh 'ls -l target'
+        //sh 'ls -l target'
       }
     }
     stage('Deploy') {
