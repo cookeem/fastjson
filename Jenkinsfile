@@ -3,8 +3,9 @@ pipeline {
     docker {
       image 'maven:3-alpine'
       label 'latest'
-      args  '-H tcp://docker:2375 --user root'
+      args '-H tcp://docker:2375 --user root'
     }
+    
   }
   stages {
     stage('Build') {
