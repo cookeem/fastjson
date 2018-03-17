@@ -8,7 +8,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          docker.withTool("docker") {
+          docker //.withTool("docker") {
             withDockerServer([uri: "tcp://docker:2375"]) {
               docker.image('maven:3.5.3').inside('--user root') {
                 sh 'id'
@@ -19,7 +19,7 @@ pipeline {
                 sh 'ls -l target'
               }
             }
-          }
+          //}
         }
         
       }
