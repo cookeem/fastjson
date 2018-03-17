@@ -1,21 +1,21 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven:3-alpine'
+      label 'latest'
+      args  '-H tcp://docker:2375 --user root'
+    }
+  }
   stages {
     stage('Build') {
       steps {
         script {
-          docker.withTool("docker") {
-            withDockerServer([uri: "tcp://docker:2375"]) {
-              docker.image('maven:3.5.3').inside('--user root') {
-                sh 'id'
-                sh 'whoami'
-                sh 'pwd'
-                sh 'mvn --version'
-                sh 'mvn clean install'
-                sh 'ls -l target'
-              }
-            }
-          }
+          sh 'id'
+          sh 'whoami'
+          sh 'pwd'
+          sh 'mvn --version'
+          sh 'mvn clean install'
+          sh 'ls -l target'
         }
         
       }
@@ -24,7 +24,7 @@ pipeline {
       steps {
         echo 'Testing....'
         sh 'pwd'
-        sh 'ls -l target'
+        sh 'which mvn'
       }
     }
     stage('Deploy') {
