@@ -19,6 +19,7 @@ pipeline {
             withDockerServer([uri: "tcp://docker:2375"]) {
               docker.image(/*'maven:3.5.3'*/ 'alpine').inside('--user root') {
                 echo "Hello, ${PERSON}, nice to meet you."
+                sh 'cat /etc/alpine-release'
                 sh 'id'
                 sh 'whoami'
                 sh 'pwd'
