@@ -9,15 +9,12 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        script {
-          sh 'id'
-          sh 'whoami'
-          sh 'pwd'
-          sh 'mvn --version'
-          sh 'mvn clean install'
-          sh 'ls -l target'
-        }
-        
+        sh 'id'
+        sh 'whoami'
+        sh 'pwd'
+        sh 'mvn --version'
+        sh 'mvn clean install'
+        sh 'ls -l target'
       }
     }
     stage('Test') {
